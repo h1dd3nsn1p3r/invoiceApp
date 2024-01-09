@@ -1,0 +1,17 @@
+{
+	"name": "pdf-invoice-api",
+	"private": true,
+	"scripts": {
+		"prepare": "nitropack prepare",
+		"dev": "nitropack dev",
+		"build": "nitropack build"
+	},
+	"dependencies": {
+		"@h1dd3nsn1p3r/pdf-invoice": "^1.0.5",
+		"nitropack": "latest"
+	},
+	"devDependencies": {
+		"@types/node": "^20.10.7",
+		"typescript": "^5.3.3"
+	}
+}
