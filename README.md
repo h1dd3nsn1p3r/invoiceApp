@@ -1,6 +1,6 @@
 # PDF INVOICE (API)
 
-🚀 Public API that generates PDF invoice, receipt & estimates.
+🚀 Public API that generates PDF invoice, receipt & estimates created using (NodeJS)[https://nodejs.org] and (Nitro Server)[https://nitro.unjs.io/].
 
 ## Setup
 
