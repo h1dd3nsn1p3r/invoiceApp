@@ -1,6 +1,6 @@
 import path from "path";
 import { PDFInvoice } from "@h1dd3nsn1p3r/pdf-invoice";
-import type { InvoicePayLoad } from "@h1dd3nsn1p3r/pdf-invoice/global";
+import type { InvoicePayLoad } from "../schema/payload.schema";
 
 export class Invoice {
 	private payload: InvoicePayLoad;
@@ -11,8 +11,9 @@ export class Invoice {
 	}
 
 	async create() {
-		const invoice = new PDFInvoice(this.payload);
-		const buffer = await invoice.create();
-		return buffer;
+		//const invoice = new PDFInvoice(this.payload);
+		//const buffer = await invoice.create();
+		//return buffer;
+		return true;
 	}
 }

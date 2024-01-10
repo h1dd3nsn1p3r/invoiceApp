@@ -8,7 +8,8 @@
 	},
 	"dependencies": {
 		"@h1dd3nsn1p3r/pdf-invoice": "^1.0.5",
-		"nitropack": "latest"
+		"nitropack": "latest",
+		"zod": "^3.22.4"
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.7",
