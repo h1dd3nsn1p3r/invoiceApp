@@ -4,4 +4,7 @@ export default defineNitroConfig({
 		brotli: true,
 		gzip: true,
 	},
+	runtimeConfig: {
+		APP_URL: process.env.NITRO_APP_URL,
+	},
 });

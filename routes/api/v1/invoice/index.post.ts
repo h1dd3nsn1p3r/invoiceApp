@@ -1,6 +1,9 @@
-import { Invoice } from "../../../controller/invoice.controller";
-import { res } from "../../../utils/helper";
-import { invoicePayLoadSchema } from "../../../schema/payload.schema";
+import dotenv from "dotenv";
+import { Invoice } from "../../../../controller/invoice.controller";
+import { res } from "../../../../utils/helper";
+import { invoicePayLoadSchema } from "../../../../schema/payload.schema";
+
+dotenv.config();
 
 /**
  * Handle the incoming request.
@@ -20,31 +23,6 @@ export default defineEventHandler(async (event) => {
 	}
 
 	/**
-	 * Validate the request body with zod.
-	 *
-	 * @since 1.0.0
-	 */
-	//const result = invoicePayLoadSchema.safeParse(content);
-
-	//if (!result.success) {
-	//	// @ts-ignore
-	//	const errors = result.error.issues.map((issue: ZodIssue) => {
-	//		return {
-	//			code: issue.code,
-	//			message: issue.message,
-	//			path: issue.path,
-	//		};
-	//	});
-
-	//	return res(400, {
-	//		success: false,
-	//		code: 400,
-	//		message: "🚨 Oops! the request body is not valid!",
-	//		errors: errors,
-	//	});
-	//}
-
-	/**
 	 * Create a new invoice.
 	 *
 	 * @since 1.0.0
@@ -57,7 +35,9 @@ export default defineEventHandler(async (event) => {
 			throw new Error("Failed to create a new invoice!");
 		}
 
-		const url = "https://localhost:3000/invoice/?pdf=" + pdfFile;
+		const env = useRuntimeConfig();
+
+		const url = env.APP_URL + "/invoice/?pdf=" + pdfFile;
 
 		return res(200, {
 			success: true,

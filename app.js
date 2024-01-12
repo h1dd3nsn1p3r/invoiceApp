@@ -51,7 +51,7 @@ async function main() {
 		note: "Note: This is a system generated invoice. If you have any questions concerning this invoice, contact us at sales@festrolcorp.io. Thank you for your business!",
 	};
 
-	const endpoint = "http://localhost:3000/api/v1/invoice";
+	const endpoint = "https://invoice.creamcode.com.np//api/v1/invoice";
 
 	const res = await fetch(endpoint, {
 		method: "POST",
