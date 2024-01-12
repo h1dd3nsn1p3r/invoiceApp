@@ -1,5 +1,6 @@
 {
 	"name": "pdf-invoice-api",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"prepare": "nitropack prepare",
