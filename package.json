@@ -7,8 +7,9 @@
 		"build": "nitropack build"
 	},
 	"dependencies": {
-		"@h1dd3nsn1p3r/pdf-invoice": "^1.0.5",
+		"@h1dd3nsn1p3r/pdf-invoice": "^1.0.6",
 		"nitropack": "latest",
+		"pino": "^8.17.2",
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
