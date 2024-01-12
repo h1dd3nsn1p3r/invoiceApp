@@ -5,6 +5,7 @@ export default defineNitroConfig({
 		gzip: true,
 	},
 	runtimeConfig: {
-		APP_URL: process.env.NITRO_APP_URL,
+		appUrl: process.env.APP_URL,
 	},
+	preset: "node-cluster",
 });

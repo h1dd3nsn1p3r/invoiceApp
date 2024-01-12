@@ -35,9 +35,9 @@ export default defineEventHandler(async (event) => {
 			throw new Error("Failed to create a new invoice!");
 		}
 
-		const env = useRuntimeConfig();
+		const env = process.env.APP_URL || "https://invoice.creamcode.com.np";
 
-		const url = env.APP_URL + "/invoice/?pdf=" + pdfFile;
+		const url = env + "/invoice/?pdf=" + pdfFile;
 
 		return res(200, {
 			success: true,

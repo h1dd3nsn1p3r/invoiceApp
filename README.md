@@ -10,7 +10,14 @@
 
 ### Usage (API)
 
-Send POST request to endpoint.
+To generate invoice:
+
+```sh
+POST https://invoice.creamcode.com.np/api/v1/invoice HTTP/1.1
+```
+
+
+
 
 
 
