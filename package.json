@@ -5,7 +5,8 @@
 	"scripts": {
 		"prepare": "nitropack prepare",
 		"dev": "nitropack dev",
-		"build": "nitropack build"
+		"build": "nitropack build",
+		"test": "node ./example/index.js"
 	},
 	"dependencies": {
 		"@h1dd3nsn1p3r/pdf-invoice": "^1.0.6",

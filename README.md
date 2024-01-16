@@ -32,7 +32,7 @@ POST `https://invoice.creamcode.com.np/api/v1/invoice` HTTP/1.1
 
 Send the payload data to the above endpoint.
 
-```json
+```js
 const invoice = {
 	.....,
 	path: "....", // Not required!
