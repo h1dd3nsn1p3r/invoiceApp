@@ -1,4 +1,5 @@
 import path from "path";
+import { fileURLToPath } from "url";
 import { PDFInvoice } from "@h1dd3nsn1p3r/pdf-invoice";
 import { createInvoiceDir } from "../utils/helper";
 import type { InvoicePayLoad } from "../schema/payload.schema";
@@ -8,27 +9,40 @@ export class Invoice {
 	path: string;
 	constructor(payload: InvoicePayLoad) {
 		this.payload = payload;
-
-		// Get the current directory.
-		const __dirname = path.resolve();
-		this.path = path.join(__dirname, "assets");
 	}
 
-	async create() {
+	/**
+	 * Create a new invoice.
+	 *
+	 * @returns {Promise<string | null>}
+	 * @since 1.0.0
+	 */
+	async create(): Promise<string | null> {
 		/**
 		 * Create required directories.
 		 */
-		await createInvoiceDir();
+		await createInvoiceDir().catch((err) => {
+			return null;
+		});
 
 		/**
 		 * Create a new invoice.
 		 */
-		const timestamp = new Date().getTime();
+		const time = new Date().getTime();
 		const name = `invoice-[${
-			this.payload.invoice.number || timestamp
-		}]-${timestamp}.pdf`;
+			this.payload.invoice.number || time
+		}]-${time}.pdf`;
 
-		const pdf = path.join(this.path, name);
+		/**
+		 * Root dir.
+		 * Note: using "../../assets" instead of "../assets" because of how nitro works.
+		 * Nitro creates dir ".nitro" in the root dir.
+		 */
+		const __filename = fileURLToPath(import.meta.url);
+		const __dirname = path.dirname(__filename);
+		const rootDir = path.join(__dirname, "../../assets");
+
+		const pdf = path.join(rootDir, name);
 
 		/**
 		 * Modify the payload.

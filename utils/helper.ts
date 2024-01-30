@@ -1,5 +1,9 @@
 import fs from "fs";
+import { fileURLToPath } from "url";
 import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Response helper.
@@ -22,9 +26,8 @@ export const res = (statusCode: number = 200, body: any) => {
  * @since 1.0.0
  */
 export const createInvoiceDir = async () => {
-	const __dirname = path.resolve();
-	const assetsDir = path.join(__dirname, "assets");
-	const logDir = path.join(__dirname, "logs");
+	const root = path.join(__dirname, "../");
+	const assetsDir = path.join(root, "assets");
 
 	if (!fs.existsSync(assetsDir)) {
 		fs.mkdir(assetsDir, (err) => {
@@ -45,7 +48,6 @@ export const createInvoiceDir = async () => {
  * @since 1.0.0
  */
 export const createLogDir = async () => {
-	const __dirname = path.resolve();
 	const logDir = path.join(__dirname, "logs");
 	const errorFile = path.join(logDir, "error.log");
 
@@ -68,4 +70,55 @@ export const createLogDir = async () => {
 	}
 
 	return true;
+};
+
+/**
+ * Read file content async.
+ *
+ *
+ * @since 1.0.0
+ */
+export const readFile = async (path: string): Promise<Buffer> => {
+	return new Promise((resolve, reject) => {
+		fs.readFile(path, (err, data) => {
+			if (err) {
+				reject(err);
+				return null;
+			}
+
+			resolve(data) as unknown as Buffer;
+		});
+	});
+};
+
+/**
+ * Normalize incoming query params.
+ * Expected param string: invoice-[1721]-1706616033797.pdf
+ *
+ * @param {string} param.
+ * @returns {string} normalized query params.
+ * @since 1.0.0
+ */
+export const normalizeQueryParam = (param: string): string | null => {
+	if (!param || param.length === 0) {
+		return null;
+	}
+
+	let data: string | null = null;
+
+	// Trim the string.
+	data = param.trim().toLowerCase();
+
+	// Remove all the white spaces.
+	data = data.replace(/\s+/g, "");
+
+	// Check if the format is correct using regex.
+	// Expected: invoice-[1721]-1706616033797.pdf
+	const regex = /^invoice-\[(\d+)\]-\d+\.pdf$/g;
+
+	if (!regex.test(data)) {
+		return null;
+	}
+
+	return data;
 };

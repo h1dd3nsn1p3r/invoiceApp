@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import { Invoice } from "../../../../controller/invoice.controller";
 import { res } from "../../../../utils/helper";
-import { invoicePayLoadSchema } from "../../../../schema/payload.schema";
 
 dotenv.config();
 

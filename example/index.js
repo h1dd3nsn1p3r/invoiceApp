@@ -1,5 +1,4 @@
-const path = require('path');
-const env = require('dotenv').config();
+//const path = require('path');
 
 async function main() {
 
@@ -52,7 +51,8 @@ async function main() {
 		note: "Note: This is a system generated invoice. If you have any questions concerning this invoice, contact us at sales@festrolcorp.io. Thank you for your business!",
 	};
 
-	const endpoint = "https://invoice.creamcode.com.np/api/v1/invoice";
+	//const endpoint = "https://invoice.creamcode.com.np/api/v1/invoice";
+	const endpoint = "http://localhost:3000/api/v1/invoice";
 
 	const res = await fetch(endpoint, {
 		method: "POST",
@@ -62,10 +62,7 @@ async function main() {
 		body: JSON.stringify(payload),
 	});
 
-	//console.log(res);
-
 	const data = await res.json();
-
 	console.log(data);
 }
 
