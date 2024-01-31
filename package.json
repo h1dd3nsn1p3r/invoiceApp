@@ -1,20 +1,24 @@
 {
 	"name": "pdf-invoice-api",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"private": true,
 	"scripts": {
 		"prepare": "nitropack prepare",
 		"dev": "nitropack dev",
-		"build": "nitropack build"
+		"build": "nitropack build",
+		"test": "node ./example/index.js"
 	},
 	"dependencies": {
 		"@h1dd3nsn1p3r/pdf-invoice": "^1.0.6",
 		"nitropack": "latest",
+		"node-cron": "^3.0.3",
 		"pino": "^8.17.2",
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
+		"@types/dotenv": "^8.2.0",
 		"@types/node": "^20.10.7",
+		"@types/node-cron": "^3.0.11",
 		"dot-env": "^0.0.1",
 		"typescript": "^5.3.3"
 	}

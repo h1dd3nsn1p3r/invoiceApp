@@ -1,5 +1,4 @@
-const path = require('path');
-const env = require('dotenv').config();
+//const path = require('path');
 
 async function main() {
 
@@ -53,6 +52,7 @@ async function main() {
 	};
 
 	const endpoint = "https://invoice.creamcode.com.np/api/v1/invoice";
+	//const endpoint = "http://localhost:3000/api/v1/invoice";
 
 	const res = await fetch(endpoint, {
 		method: "POST",
@@ -62,10 +62,7 @@ async function main() {
 		body: JSON.stringify(payload),
 	});
 
-	//console.log(res);
-
 	const data = await res.json();
-
 	console.log(data);
 }
 

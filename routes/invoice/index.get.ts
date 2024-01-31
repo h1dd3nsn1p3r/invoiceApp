@@ -1,7 +1,8 @@
 import fs from "fs";
-import path from "path";
 import util from "util";
-import { res } from "../../utils/helper";
+import path from "path";
+import { res, normalizeQueryParam } from "../../utils/helper";
+import { baseDir } from "../../app";
 
 const readFile = util.promisify(fs.readFile);
 
@@ -24,13 +25,24 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	// Get the pdf file name.
-	const pdf = params.split("pdf=")[1];
+	// Get the pdf file name from the params.
+	const queryParam = params.split("pdf=")[1];
 
-	// Check if the file exists.
-	const __dirname = path.resolve();
+	// Normalize the query param.
+	const query = normalizeQueryParam(queryParam);
 
-	const pdfFile = path.join(__dirname, "assets", pdf);
+	if (!query) {
+		return res(400, {
+			success: false,
+			code: 400,
+			message: "🚨 Invalid file name!",
+		});
+	}
+
+	const pdfFile = path.join(baseDir(), "assets", query);
+
+	//console.log("🐶 The root DIR is : ", baseDir());
+	//console.log("🐸 Looking for invoice in path: ", pdfFile);
 
 	if (!fs.existsSync(pdfFile)) {
 		return res(404, {
@@ -49,7 +61,7 @@ export default eventHandler(async (event) => {
 
 		const headers = {
 			"Content-Type": "application/pdf",
-			"Content-Disposition": `attachment; filename=${pdf}`,
+			"Content-Disposition": `attachment; filename=${query}`,
 			"Content-Length": data.length.toString(),
 		};
 

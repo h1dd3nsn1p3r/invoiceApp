@@ -1,4 +1,4 @@
-import { res } from "../utils/helper";
+import { res, scheduler } from "../utils/helper";
 
 /**
  * Default route handler.
@@ -10,3 +10,10 @@ export default eventHandler(() => {
 		status: "🚀 API is online! " + new Date(),
 	});
 });
+
+/**
+ * Run the scheduler.
+ *
+ * @since 1.0.0
+ */
+scheduler();
