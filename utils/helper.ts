@@ -1,10 +1,7 @@
 import fs from "fs";
-import { fileURLToPath } from "url";
 import path from "path";
 import cron from "node-cron";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { baseDir } from "../app";
 
 /**
  * Response helper.
@@ -27,44 +24,12 @@ export const res = (statusCode: number = 200, body: any) => {
  * @since 1.0.0
  */
 export const createInvoiceDir = async () => {
-	const root = path.join(__dirname, "../");
-	const assetsDir = path.join(root, "assets");
+	const assetsDir = path.join(baseDir(), "assets");
 
 	if (!fs.existsSync(assetsDir)) {
 		fs.mkdir(assetsDir, (err) => {
 			if (err) {
 				throw new Error("Failed to create assets DIR!");
-			}
-			return true;
-		});
-	}
-
-	return true;
-};
-
-/**
- * Create logs dir.
- * This is a DIR where we save all the logs.
- *
- * @since 1.0.0
- */
-export const createLogDir = async () => {
-	const logDir = path.join(__dirname, "logs");
-	const errorFile = path.join(logDir, "error.log");
-
-	if (!fs.existsSync(logDir)) {
-		fs.mkdir(logDir, (err) => {
-			if (err) {
-				throw new Error("Failed to create logs DIR!");
-			}
-			return true;
-		});
-	}
-
-	if (!fs.existsSync(errorFile)) {
-		fs.writeFile(errorFile, "", (err) => {
-			if (err) {
-				throw new Error("Failed to create error.log file!");
 			}
 			return true;
 		});
@@ -131,7 +96,7 @@ export const normalizeQueryParam = (param: string): string | null => {
  * @since 1.0.0
  */
 export const scheduler = async () => {
-	cron.schedule("* * * * *", async () => {
+	cron.schedule("0 0 * * *", async () => {
 		await deleteInvoices().catch((e) => {
 			console.log(e);
 		});
@@ -147,10 +112,7 @@ export const scheduler = async () => {
  */
 export const deleteInvoices = async (): Promise<boolean> => {
 	// Get the assets dir.
-	// "../../assets" -> "src/assets"
-	const assetsDir = path.join(__dirname, "../../assets");
-
-	console.log("Inside delete invoice function, assets dirs: " + assetsDir);
+	const assetsDir = path.join(baseDir(), "assets");
 
 	if (!fs.existsSync(assetsDir)) {
 		return false;

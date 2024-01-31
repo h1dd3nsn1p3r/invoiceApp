@@ -1,12 +1,10 @@
 import fs from "fs";
 import util from "util";
 import path from "path";
-import { fileURLToPath } from "url";
 import { res, normalizeQueryParam } from "../../utils/helper";
+import { baseDir } from "../../app";
 
 const readFile = util.promisify(fs.readFile);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 /**
  * Handle the incoming "GET" request.
@@ -41,7 +39,10 @@ export default eventHandler(async (event) => {
 		});
 	}
 
-	const pdfFile = path.join(__dirname, "../../assets/", query);
+	const pdfFile = path.join(baseDir(), "assets", query);
+
+	//console.log("🐶 The root DIR is : ", baseDir());
+	//console.log("🐸 Looking for invoice in path: ", pdfFile);
 
 	if (!fs.existsSync(pdfFile)) {
 		return res(404, {

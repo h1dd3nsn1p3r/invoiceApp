@@ -1,8 +1,8 @@
 import path from "path";
-import { fileURLToPath } from "url";
 import { PDFInvoice } from "@h1dd3nsn1p3r/pdf-invoice";
 import { createInvoiceDir } from "../utils/helper";
 import type { InvoicePayLoad } from "../schema/payload.schema";
+import { baseDir } from "../app";
 
 export class Invoice {
 	payload: InvoicePayLoad;
@@ -33,22 +33,15 @@ export class Invoice {
 			this.payload.invoice.number || time
 		}]-${time}.pdf`;
 
-		/**
-		 * Root dir.
-		 * Note: using "../../assets" instead of "../assets" because of how nitro works.
-		 * Nitro creates dir ".nitro" in the root dir.
-		 */
-		const __filename = fileURLToPath(import.meta.url);
-		const __dirname = path.dirname(__filename);
-		const rootDir = path.join(__dirname, "../../assets");
-
-		const pdf = path.join(rootDir, name);
+		const pdf = path.join(baseDir(), "assets", name);
 
 		/**
 		 * Modify the payload.
 		 * Include the path where we want to save the invoice.
 		 */
 		this.payload.invoice.path = pdf;
+
+		//console.log("🎉 Created invoice in path: ", this.payload.invoice.path);
 
 		try {
 			// @ts-ignore
