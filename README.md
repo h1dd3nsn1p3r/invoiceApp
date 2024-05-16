@@ -1,18 +1,14 @@
-# PDF INVOICE (API)
+# Invoice App
 
-🚀 Public API that generates PDF invoice, receipt & estimates created using [NodeJS](https://nodejs.org/)/[BunJS](https://bun.sh/) and [Hono](https://hono.dev/).
+🚀 App that generates PDF invoice, receipt & estimates. Powered by [NodeJS](https://nodejs.org/) / [BunJS](https://bun.sh/) and [Hono](https://hono.dev/).
 
 ## Setup
 
-1. Clone the repo.
+1. Clone.
 2. Run `bun install` to install all the dependencies.
 3. Run `bun run dev` to start the development server.
 
-### Usage
-
-Open API that generates invoice, receipt & estimates in PDF format. It accepts JSON data and returns PDF file.
-
-### Check server status
+### Check status
 
 To check the server status follow the below steps:
 
@@ -49,18 +45,14 @@ The `path` key is not required in the payload data. The API will generate the PD
 }
 ```
 
-The `link` key contains the link to the PDF file. You can use this link to download the PDF file.
-
-## PDF Files
-
-All generated PDF files will stay in the server for seven days. After seven days, the files will be deleted automatically.
+The `data` key contains the link to the PDF file. You can use this link to download the PDF file.
 
 ## Deploy
 
-Install BunJS CLI globally and PM2.
+Install BunJS, PM2 globally.
 
 ```sh
-pm2 start "bun run start" --name "invoiceApp"
+pm2 start "bun run start" --name "invoiceApp" --watch
 ```
 
 That's all folks! 🚀
