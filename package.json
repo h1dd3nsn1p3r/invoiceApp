@@ -1,6 +1,6 @@
 {
   "name": "Invoice App",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "App that generates PDF invoice.",
   "module": "src/app.ts",
   "type": "module",

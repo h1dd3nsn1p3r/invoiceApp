@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { mkdir, exists, readFile } from "node:fs/promises";
+import { mkdir, exists } from "node:fs/promises";
 import { PDFInvoice } from "@h1dd3nsn1p3r/pdf-invoice";
 import type { InvoicePayLoad } from "@h1dd3nsn1p3r/pdf-invoice/global.d.ts";
 

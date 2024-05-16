@@ -23,15 +23,22 @@ export const createDir = async (): Promise<string | undefined> => {
  * Read invoice file.
  *
  * @param {string} name - The name of the invoice file.
- * @returns {string} The path to the invoice directory.
+ * @returns {Promise<Blob | undefined>}
  * @since 2.0.0
  */
-export const readInvoice = async (
-	name: string
-): Promise<string | undefined> => {
+export const readInvoice = async (name: string): Promise<Blob | undefined> => {
 	try {
-		const dir = resolve(process.cwd(), ".invoice");
-		return await readFile(resolve(dir, name), "utf-8");
+		const dir = resolve(process.cwd(), ".invoice", name);
+
+		const file = Bun.file(dir);
+
+		const content = new Blob([file], { type: "application/pdf" });
+
+		if (!content) {
+			throw new Error("Failed!");
+		}
+
+		return content;
 	} catch (e) {
 		return;
 	}

@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import { res } from "@util/http";
-import { sanitizeParam } from "@util/helper";
 import { invoicePathToURL, readInvoice } from "@util/io";
 import { Invoice } from "@server/invoice";
 import type { Context } from "hono";
@@ -17,45 +16,49 @@ const api = new Hono();
  * @since 2.0.0
  */
 api.get("/invoice/:name", async (c: Context) => {
-	const query = c.req.param("name");
+	const param = c.req.param("name");
 
-	if (!query || !query.length) {
+	if (!param || !param.length) {
 		return res(400, {
 			status: false,
-			message: "Failed! pdf file name is missing.",
+			message: "Failed! PDF file name is missing.",
 		});
 	}
 
-	const param = sanitizeParam(query);
+	/**
+	 * Sanitize incoming query params.
+	 * Expected param string: invoice-[1721]-1706616033797.pdf
+	 */
+	const pdfName = param.trim().toLowerCase().replace(/\s+/g, "");
 
-	if (!param) {
+	const regex = /^invoice-\[\d+\]-\d+\.pdf$/;
+
+	if (!pdfName || !pdfName.length || !regex.test(pdfName)) {
 		return res(400, {
 			status: false,
-			message: "Failed! invalid pdf file name.",
+			message: "Failed! invalid PDF file name.",
 		});
 	}
 
 	/**
 	 * Read invoice file.
+	 * Returns a Blob object.
 	 */
-	const invoice = await readInvoice(param);
+	const data = await readInvoice(pdfName);
 
-	if (!invoice || !invoice.length) {
+	if (!data) {
 		return res(404, {
 			status: false,
-			message: "Oops! invoice doesn't exists.",
+			message: "Failed! PDF file not found.",
 		});
 	}
 
-	const headers = {
-		"Content-Type": "application/pdf",
-		"Content-Disposition": `attachment; filename=${param}`,
-		"Content-Length": invoice.length.toString(),
-	};
-
-	return new Response(invoice, {
+	return new Response(data, {
 		status: 200,
-		headers,
+		headers: {
+			"Content-Type": "application/pdf",
+			"Content-Disposition": `attachment; filename=${pdfName}`,
+		},
 	});
 });
 
