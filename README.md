@@ -1,12 +1,12 @@
 # PDF INVOICE (API)
 
-🚀 Public API that generates PDF invoice, receipt & estimates created using [NodeJS](https://nodejs.org) & [Nitro Server](https://nitro.unjs.io/).
+🚀 Public API that generates PDF invoice, receipt & estimates created using [NodeJS](https://nodejs.org/)/[BunJS](https://bun.sh/) and [Hono](https://hono.dev/).
 
 ## Setup
 
 1. Clone the repo.
-2. Run `pnpm install` to install all the dependencies.
-3. Run `pnpm run dev` to start the development server.
+2. Run `bun install` to install all the dependencies.
+3. Run `bun run dev` to start the development server.
 
 ### Usage
 
@@ -27,7 +27,7 @@ If you receive status code `200`, then the server is up and running.
 This API uses PDF Invoice generator by [Anuj Subedi](https://github.com/h1dd3nsn1p3r/pdf-invoice) under the hood to generate the PDF invoice. All the payload data is same except few changes.
 
 ```sh
-POST `https://invoice.creamcode.com.np/api/v1/invoice` HTTP/1.1
+POST `https://invoice.creamcode.com.np/v1/invoice` HTTP/1.1
 ```
 
 Send the payload data to the above endpoint.
@@ -35,7 +35,7 @@ Send the payload data to the above endpoint.
 ```js
 const invoice = {
 	.....,
-	path: "....", // Not required!
+	path: "....", // optional.
 }
 ```
 
@@ -43,10 +43,9 @@ The `path` key is not required in the payload data. The API will generate the PD
 
 ```json
 {
-	"success": true,
-	"code": 200,
+	"status": true,
 	"message": "🎉 Invoice created successfully!",
-	"link": "https://invoice.creamcode.com.np/invoice/?pdf=invoice-[1721]-1705093211407.pdf",
+	"data": "https://invoice.creamcode.com.np/invoice/invoice-[1721]-1705093211407.pdf",
 }
 ```
 
