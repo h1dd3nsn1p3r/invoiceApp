@@ -55,6 +55,16 @@ The `link` key contains the link to the PDF file. You can use this link to downl
 
 All generated PDF files will stay in the server for seven days. After seven days, the files will be deleted automatically.
 
+## Deploy
+
+Install BunJS CLI globally and PM2.
+
+```sh
+pm2 start "bun run start" --name "invoiceApp"
+```
+
+That's all folks! 🚀
+
 
 
 
