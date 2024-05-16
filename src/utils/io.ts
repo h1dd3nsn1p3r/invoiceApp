@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { resolve } from "path";
-import { mkdir, exists, readFile } from "node:fs/promises";
+import { mkdir, exists } from "node:fs/promises";
 
 /**
  * Create invoice directory.
@@ -28,14 +28,18 @@ export const createDir = async (): Promise<string | undefined> => {
  */
 export const readInvoice = async (name: string): Promise<Blob | undefined> => {
 	try {
-		const dir = resolve(process.cwd(), ".invoice", name);
+		const pdfFile = resolve(process.cwd(), ".invoice", name);
 
-		const file = Bun.file(dir);
+		const data = Bun.file(pdfFile);
 
-		const content = new Blob([file], { type: "application/pdf" });
+		if (!data.size) {
+			throw new Error("Failed! no content.");
+		}
+
+		const content = new Blob([data], { type: "application/pdf" });
 
 		if (!content) {
-			throw new Error("Failed!");
+			throw new Error("Failed! no content.");
 		}
 
 		return content;
@@ -47,8 +51,8 @@ export const readInvoice = async (name: string): Promise<Blob | undefined> => {
 /**
  * Generate URL from invoice path.
  *
- * @param {string} name - The name of the invoice file.
- * @returns {string} The path to the invoice directory.
+ * @param {string} path - The path to the invoice file.
+ * @returns {string} - The URL to the invoice file.
  * @since 2.0.0
  */
 export const invoicePathToURL = (path: string): string => {

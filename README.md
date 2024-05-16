@@ -58,6 +58,12 @@ pm2 start "bun run start" --name "invoiceApp" --watch
 That's all folks! 🚀
 
 
+## Changes
+
+### 2.0.3 - 2024/05/17
+
+- Fix: Bun File.
+
 
 
 
