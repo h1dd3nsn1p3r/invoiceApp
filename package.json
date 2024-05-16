@@ -1,25 +1,22 @@
 {
-	"name": "pdf-invoice-api",
-	"version": "1.0.2",
-	"private": true,
-	"scripts": {
-		"prepare": "nitropack prepare",
-		"dev": "nitropack dev",
-		"build": "nitropack build",
-		"test": "node ./example/index.js"
-	},
-	"dependencies": {
-		"@h1dd3nsn1p3r/pdf-invoice": "^1.0.6",
-		"nitropack": "latest",
-		"node-cron": "^3.0.3",
-		"pino": "^8.17.2",
-		"zod": "^3.22.4"
-	},
-	"devDependencies": {
-		"@types/dotenv": "^8.2.0",
-		"@types/node": "^20.10.7",
-		"@types/node-cron": "^3.0.11",
-		"dot-env": "^0.0.1",
-		"typescript": "^5.3.3"
-	}
+  "name": "Invoice App",
+  "version": "1.0.0",
+  "description": "App that generates PDF invoice.",
+  "module": "src/app.ts",
+  "type": "module",
+  "scripts": {
+    "start": "NODE_ENV=production bun src/app.ts",
+    "dev": "bun --watch src/app.ts"
+  },
+  "dependencies": {
+    "hono": "^4.3.7"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "dotenv": "^16.4.5",
+    "@h1dd3nsn1p3r/pdf-invoice": "^1.0.7"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
 }
