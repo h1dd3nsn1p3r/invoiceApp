@@ -62,7 +62,32 @@ That's all folks! 🚀
 
 ### 2.0.3 - 2024/05/17
 
-- Fix: Bun File.
+- 📦 Added: .env example. 
+- 📦 Updated: readme. 
+- 🐛 Fix: bun readFile function. 
+
+### 2.0.1 - 2024/05/16
+
+- 🐛 Fix: blank PDF file was being sent as response.
+
+### 2.0.0 - 2024/05/16
+
+- 🔥 NEW: Migrated to HonoJS https://hono.dev/
+- 🔥 NEW: API endpoint to get the invoice. Check readme.
+- 🔥 NEW: Moved from NodeJS to BunJS runtime.
+- 🧯 REMOVED: NitroJS as a server engine https://nitro.unjs.io/
+
+### 1.0.1 - 2024/01/31
+
+- 📦 Added: CORN job that deletes the old PDF files.
+- 🐛 Fix: resolved path issue.
+
+### 1.0.0 - 2024/01/13
+
+- 📦 Initial release using Nitro server engine https://nitro.unjs.io.
+
+
+
 
 
 
