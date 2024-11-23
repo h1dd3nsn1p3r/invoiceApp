@@ -1,9 +1,9 @@
-FROM oven/bun:alpine:latest
+FROM oven/bun:alpine
 
 # Create app directory
 WORKDIR /app
 
-# Copy everything from the current directory to the /app 
+# Copy everything from the current directory to the /app
 COPY . .
 
 # Install app dependencies
