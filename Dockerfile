@@ -13,4 +13,4 @@ RUN bun install
 EXPOSE 2600
 
 # Serve the app
-CMD ["bun", "serve"]
+CMD ["bun", "run", "start"]

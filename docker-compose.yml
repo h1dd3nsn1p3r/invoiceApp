@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  invoice-app:
+    image: invoice-app:2.0.3  # The built image
+    container_name: invoice-app
+    ports:
+      - "2600:2600"  # Exposing port for your app
+    volumes:
+      - ./data:/app/.invoice  # Mounting a volume for invoice persistence
+    networks:
+      - invoice-app-network  # Connecting to a custom network
+    env_file:
+      - .env  # Automatically load environment variables from the .env file
+
+  invoice-app-2:
+    image: invoice-app:2.0.3  # The built image
+    container_name: invoice-app-2
+    ports:
+      - "2601:2600"  # Exposing port for your app
+    volumes:
+      - data:/app/.invoice  # Mounting a volume for invoice persistence
+    networks:
+      - invoice-app-network  # Connecting to a custom network
+    env_file:
+      - .env  # Automatically load environment variables from the .env file
+
+# Define named volume to persist invoices
+volumes:
+  data:
+    driver: local
+
+# Define custom network
+networks:
+  invoice-app-network:
+    driver: bridge
