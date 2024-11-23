@@ -10,6 +10,8 @@ COPY . .
 RUN bun install
 
 # Expose the port the app runs on
+# The app will be running on port 2600
+# Example: http://localhost:2600
 EXPOSE 2600
 
 # Serve the app
